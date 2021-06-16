@@ -48,7 +48,9 @@ const Navbar = (props) => {
             <Heading level='3' onClick={() => history.push('/')} margin={{ 'vertical': '0', 'right': '50px'}}>My Blogger</Heading>
             <Nav direction="row" flex gap="medium">
                 <Anchor label="Home" href="/" />
-                <Anchor label="Profile" href="#" />
+                <Anchor label="About" href="/about" />
+                <Anchor label="Contact" href="/contact" />
+                { user?.result && <Anchor label="Profile" href="#" />}
             </Nav>
             <Box direction="row">
                 {user?.result ? (

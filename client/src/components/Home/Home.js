@@ -1,4 +1,6 @@
 import { Grid, Box } from 'grommet';
+import { Form } from '../Posts/index';
+
 const Home = () => {
     return (
         <Grid fill
@@ -9,11 +11,11 @@ const Home = () => {
                 { name: 'form', start: [1, 1], end: [1, 1] },
                 { name: 'posts', start: [0, 1], end: [0, 1] },
             ]}>
-            <Box gridArea="posts" background="light-1">
+            <Box gridArea="posts" background="light-1" pad="small">
                 You will see posts here.
             </Box>
-            <Box gridArea="form" background="light-2">
-                You will see form here to add edit posts.
+            <Box gridArea="form" background="light-2" align="center" pad="small">
+                <Form></Form>
             </Box>
         </Grid>
     );

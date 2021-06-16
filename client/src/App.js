@@ -5,6 +5,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
+import About from './components/About/About';
+import Contact from './components/Contact/Contact';
 
 const theme = {
   global: {
@@ -12,31 +14,29 @@ const theme = {
       brand: '#228BE6'
     },
     font: {
-      family: 'Roboto',
-      size: '16px',
-      height: '20px',
+      family: 'Roboto Slab',
+      size: '16px'
     },
-    formField: {
-      label: {
-        color: 'dark-3',
-        size: 'xsmall',
-        margin: { vertical: '0', bottom: 'small', horizontal: '0' },
-        weight: 600,
-      },
-      font: {
-        family: 'Roboto',
-        size: '14px',
-        height: '15px',
-      },
-      border: false,
-      margin: '0',
-    },
-    control:{
-      border:{
-        radius: "12px"
+    control: {
+      border: {
+        radius: '12px'
       }
     }
   },
+  focus:{
+    border:{
+      color: '#228BE6'
+    },
+    outline: {
+      color: '#228BE6'
+    }
+  },
+  formField: {
+    round: "12px",
+    border: {
+      side: 'all'
+    }
+  }
 };
 
 
@@ -47,6 +47,8 @@ const App = () => {
         <Navbar/>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/about" exact component={About} />
+          <Route path="/contact" exact component={Contact} />
           <Route path="/auth" exact component={Auth} />
         </Switch>
       </BrowserRouter>
