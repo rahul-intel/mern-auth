@@ -16,3 +16,4 @@
 .password-box .password-formfield .cpvnmn .password-input:focus, .password-box .password-formfield .iovhzP .password-input:focus {
     box-shadow: none !important;
 }
+button:focus { box-shadow: none !important; }
