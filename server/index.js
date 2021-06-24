@@ -5,6 +5,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import userRouter from './routes/user.js';
+import postsRouter from './routes/posts.js';
 
 export const notfound = async (req, res) => {
   res.status(404).json("404 Not found!");
@@ -18,6 +19,8 @@ app.use(cors());
 
 //app.use("/", notfound);
 app.use("/user", userRouter);
+app.use("/posts", postsRouter);
+
 const DB_USER = process.env.DB_USER;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const CONNECTION_URL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.jtwmn.mongodb.net/mern-auth?retryWrites=true&w=majority`;
