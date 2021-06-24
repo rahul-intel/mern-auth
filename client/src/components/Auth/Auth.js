@@ -8,8 +8,8 @@ import {
     Text,
     Anchor
 } from 'grommet';
-import { Hide, View } from 'grommet-icons';
-import { useDispatch } from 'react-redux';
+import { Hide, View, Alert } from 'grommet-icons';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 //import { GoogleLogin } from 'react-google-login';
 import { signin, signup } from '../../actions/auth';
@@ -25,6 +25,8 @@ const SignUp = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const handleShowPassword = () => setShowPassword(!showPassword);
+    const isErrorOpen = useSelector(state => state.error.isOpen);
+    const errorMessage = useSelector(state => state.error.error);
 
     const switchMode = () => {
         setForm(initialState);
@@ -66,66 +68,73 @@ const SignUp = () => {
     return (
         <Box fill align="center" margin={{top: '50px'}}>
             <Text weight="bold" size="large">{isSignup ? 'Register' : 'Login'}</Text>
+
             <Box width="medium" margin={{top: 'medium'}}>
-                <Form
-                value={form}
-                onReset={() => setForm(initialState)}
-                onChange={(nextValue, { touched }) => {
-                    //console.log('Change', nextValue, touched);
-                    setForm(nextValue);
-                }}
-                onSubmit={handleSubmit}
-                >
-                    { isSignup && (
-                        <Box direction="row">
-                            <FormField
-                                required
-                                validate={{ regexp: /^[a-z]/i }}
-                                name="firstName"
-                                placeholder="First Name"
-                                margin={{right: '10px'}}
-                            ></FormField>
-                            <FormField
-                                name="lastName"
-                                placeholder="Last Name"
-                            ></FormField>
-                        </Box>
-                    )}
-                    <FormField 
-                        placeholder="Email" 
-                        name="email"
-                        required
-                        type="email">
-                    </FormField>
-                    <Box margin={{ bottom: 'small' }} className="password-box">
-                        <FormField className="password-formfield" plain name="password"required htmlFor="password-field">
-                            <TextInput placeholder="Password" type={showPassword ? 'text' : 'password'}  className="password-input" size="medium" plain name="password" id="password-field"></TextInput>
-                            <Button className="password-show-btn" plain icon={showPassword ? <View /> : <Hide />} onClick={handleShowPassword} />
+                {isErrorOpen && errorMessage && <Box direction="row" margin={{ bottom: 'medium' }} className="formError" background="light-1" height="xsmall" round align="center" justify="start" pad={{ vertical: '0' , horizontal: 'small'}}>
+                    <Alert color="red" size="medium"></Alert>
+                    <Text margin={{ left: '10px'}} color="red" size="medium">{errorMessage}</Text>
+                </Box> }
+                <Box>
+                    <Form
+                    value={form}
+                    onReset={() => setForm(initialState)}
+                    onChange={(nextValue, { touched }) => {
+                        //console.log('Change', nextValue, touched);
+                        setForm(nextValue);
+                    }}
+                    onSubmit={handleSubmit}
+                    >
+                        { isSignup && (
+                            <Box direction="row">
+                                <FormField
+                                    required
+                                    validate={{ regexp: /^[a-z]/i }}
+                                    name="firstName"
+                                    placeholder="First Name"
+                                    margin={{right: '10px'}}
+                                ></FormField>
+                                <FormField
+                                    name="lastName"
+                                    placeholder="Last Name"
+                                ></FormField>
+                            </Box>
+                        )}
+                        <FormField 
+                            placeholder="Email" 
+                            name="email"
+                            required
+                            type="email">
                         </FormField>
-                        
-                    </Box>
-                    { isSignup && <FormField placeholder="Confirm Password" type="password" name="confirmPassword" required validate={equalsField}></FormField> }
-                    <Box direction="row" width="medium" justify={isSignup ? "between" : "end"} margin={{ vertical: "medium"}}>
-                        {isSignup && <Button type="reset" label="Reset" /> }
-                        <Button type="submit" label={isSignup ? 'Sign Up' : 'Sign In'} primary />
-                    </Box>
-                    {/* <Box direction="row" width="medium" justify="between" margin={{ top: 'medium' }}>
-                        <GoogleLogin
-                            clientId="564033717568-e5p23rhvcs4i6kffgsbci1d64r8hp6fn.apps.googleusercontent.com"
-                            render={(renderProps) => (
-                                <Button primary type="button" onClick={renderProps.onClick} disabled={renderProps.disabled} label="Google Sign In"/>
-                            )}
-                            onSuccess={googleSuccess}
-                            onFailure={googleError}
-                            cookiePolicy="single_host_origin"
-                        />
-                    </Box> */}
-                    <Box direction="row" width="medium" justify="end" margin={{ vertical: "medium" }}>
-                        <Anchor onClick={switchMode}>
-                            {isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up"}
-                        </Anchor>
-                    </Box>
-                </Form>
+                        <Box margin={{ bottom: 'small' }} className="password-box">
+                            <FormField className="password-formfield" plain name="password"required htmlFor="password-field">
+                                <TextInput placeholder="Password" type={showPassword ? 'text' : 'password'}  className="password-input" size="medium" plain name="password" id="password-field"></TextInput>
+                                <Button className="password-show-btn" plain icon={showPassword ? <View /> : <Hide />} onClick={handleShowPassword} />
+                            </FormField>
+                            
+                        </Box>
+                        { isSignup && <FormField placeholder="Confirm Password" type="password" name="confirmPassword" required validate={equalsField}></FormField> }
+                        <Box direction="row" width="medium" justify={isSignup ? "between" : "end"} margin={{ vertical: "medium"}}>
+                            {isSignup && <Button type="reset" label="Reset" /> }
+                            <Button type="submit" label={isSignup ? 'Sign Up' : 'Sign In'} primary />
+                        </Box>
+                        {/* <Box direction="row" width="medium" justify="between" margin={{ top: 'medium' }}>
+                            <GoogleLogin
+                                clientId="564033717568-e5p23rhvcs4i6kffgsbci1d64r8hp6fn.apps.googleusercontent.com"
+                                render={(renderProps) => (
+                                    <Button primary type="button" onClick={renderProps.onClick} disabled={renderProps.disabled} label="Google Sign In"/>
+                                )}
+                                onSuccess={googleSuccess}
+                                onFailure={googleError}
+                                cookiePolicy="single_host_origin"
+                            />
+                        </Box> */}
+                        <Box direction="row" width="medium" justify="end" margin={{ vertical: "medium" }}>
+                            <Anchor onClick={switchMode}>
+                                {isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up"}
+                            </Anchor>
+                        </Box>
+                    </Form>
+                </Box>
             </Box>
         </Box>
     );
