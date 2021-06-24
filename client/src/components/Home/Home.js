@@ -1,7 +1,17 @@
+import { useState, useEffect } from 'react';
 import { Grid, Box } from 'grommet';
-import { Form } from '../Posts/index';
+import { useDispatch } from 'react-redux';
+
+import { getPosts } from '../../actions/posts';
+import { PostForm, Posts } from '../Posts/index';
 
 const Home = () => {
+    const [currentId, setCurrentId] = useState(0);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getPosts());
+    }, [currentId, dispatch]);
     return (
         <Grid fill
             rows={['auto', 'flex']}
@@ -12,10 +22,10 @@ const Home = () => {
                 { name: 'posts', start: [0, 1], end: [0, 1] },
             ]}>
             <Box gridArea="posts" background="light-1" pad="small">
-                You will see posts here.
+                <Posts setCurrentId={setCurrentId}/>
             </Box>
             <Box gridArea="form" background="light-2" align="center" pad="small">
-                <Form></Form>
+                <PostForm currentId={currentId} setCurrentId={setCurrentId}></PostForm>
             </Box>
         </Grid>
     );
