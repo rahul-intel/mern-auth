@@ -40,7 +40,7 @@ const PostForm = ({currentId, setCurrentId}) => {
     }else{
         return (
             <Box fill align="center" margin={{ top: '20px' }}>
-                <Text weight="bold" size="large">{currentId ? `Editing "${post.title}"` : 'Creating a Memory'}</Text>
+                <Text weight="bold" size="large">{currentId ? `Editing "${post.title}"` : 'Creating a Post'}</Text>
                 <Box width="medium" margin={{ top: 'medium' }}>
                     <Form
                         value={postData}

@@ -10,10 +10,10 @@ const Posts = ({ setCurrentId }) => {
         !posts.length ? "There's no post to show here." : (
             <Grid fill
                 rows={['auto', 'flex']}
-                columns={["auto", "auto"]}
-                gap="small">
+                columns={{count: "fit",size: '25%'}}
+                gap="medium">
                 {posts.map((post) => (
-                    <Post post={post} setCurrentId={setCurrentId} />
+                    <Post key={post._id} post={post} setCurrentId={setCurrentId} />
                 ))}
             </Grid>
         )
