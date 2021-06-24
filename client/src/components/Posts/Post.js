@@ -32,7 +32,7 @@ const Post = ({post, setCurrentId}) => {
             hoverIndicator onClick={() => dispatch(likePost(post._id))} /></>;
     };
     return (
-        <Card elevation="large" width="medium">
+        <Card elevation="small" width="medium">
             <CardBody height="small">
                 <Image
                     fit="cover"
