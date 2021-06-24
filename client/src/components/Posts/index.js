@@ -1,4 +1,4 @@
-import Form from './Form';
-import Post from './Post';
+import PostForm from './PostForm';
+import Posts from './Posts';
 
-export { Form , Post };
+export { Posts, PostForm };

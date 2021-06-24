@@ -3,8 +3,9 @@ import jwt from 'jsonwebtoken';
 const secret = 'test';
 
 const auth = async (req, res, next) => {
+    console.log(req.headers);
     try {
-        const token = req.headders.authorization.split(" ")[1];
+        const token = req.headers.authorization.split(" ")[1];
         //check if user comes from our site or from google.
         const isManualToken = token.length < 500;
 
