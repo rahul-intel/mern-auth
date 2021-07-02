@@ -50,4 +50,4 @@ export const deletePost = (id)=> async (dispatch) => {
     } catch (error) {
         console.log(error);
     }
-}
+};

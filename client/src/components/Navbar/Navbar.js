@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Heading, Nav, Anchor } from 'grommet';
+import { Box, Button, Heading, Nav, Anchor, Menu, Header, ResponsiveContext } from 'grommet';
+import { Power, User, Menu as MenuIcon, Login } from 'grommet-icons';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
@@ -7,8 +8,7 @@ import decode from 'jwt-decode';
 import * as actionType from '../../constants/actionTypes';
 
 const AppBar = (props) => (
-    <Box
-        tag='header'
+    <Header
         direction='row'
         align='center'
         justify='between'
@@ -20,6 +20,7 @@ const AppBar = (props) => (
 );
 const Navbar = (props) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [activePage, setActivePage] = useState('/');
     const dispatch = useDispatch();
     const location = useLocation();
     const history = useHistory();
@@ -42,21 +43,42 @@ const Navbar = (props) => {
         }
 
         setUser(JSON.parse(localStorage.getItem('profile')));
+        if(activePage !== location.pathname) {
+            setActivePage(location.pathname);
+        }
     }, [location]);
     return (
         <AppBar>
             <Heading level='3' onClick={() => history.push('/')} margin={{ 'vertical': '0', 'right': '50px'}}>My Blogger</Heading>
-            <Nav direction="row" flex gap="medium">
-                <Anchor label="Home" href="/" />
-                <Anchor label="About" href="/about" />
-                <Anchor label="Contact" href="/contact" />
-                { user?.result && <Anchor label="Profile" href="#" />}
-            </Nav>
+            <ResponsiveContext.Consumer>
+                {size =>
+                    size !== 'small' ? (
+                    <Nav direction="row" flex gap="medium">
+                        <Anchor label="Home" color={activePage === '/' ? 'activeAnchor': 'brand'} href="/" />
+                        <Anchor label="About" color={activePage === '/about' ? 'activeAnchor' : 'brand'} href="/about" />
+                        <Anchor label="Contact" color={activePage === '/contact' ? 'activeAnchor' : 'brand'} href="/contact" />
+                    </Nav>) : (
+                    <Menu
+                        icon={<MenuIcon color="brand" />}
+                        items={[
+                            { label: 'Home', href: '/', gap: 'small' },
+                            { label: 'About', href: '/about', gap: 'small' },
+                            { label: 'Contact', href: '/contact', gap: 'small' }
+                        ]}
+                    />
+                )}
+            </ResponsiveContext.Consumer>
             <Box direction="row">
                 {user?.result ? (
-                    <Button color="primary" label='Logout' onClick={logout} />
+                    <Menu
+                        label={user?.result?.name}
+                        items={[
+                            { label: 'Profile', onClick: () => { }, icon: <User />, gap: 'small' },
+                            { label: 'Logout', onClick: logout, icon: <Power />, gap: 'small' },
+                        ]}
+                    />
                 ) : (
-                    <Button color="primary" label='Login' onClick={() =>  history.push('/auth') } />
+                        <Button color="primary" icon={<Login color="brand"/>} label='Login' onClick={() =>  history.push('/auth') } />
                 )}
             </Box>
         </AppBar>
