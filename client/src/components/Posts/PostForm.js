@@ -57,10 +57,12 @@ const PostForm = ({currentId, setCurrentId}) => {
                             type="text">
                         </FormField>
                         <FormField
-                            placeholder="Describe about the post"
                             name="message">
-                            <TextArea plain name="message" />
+                            <TextArea placeholder="Describe about the post" plain name="message" />
                         </FormField>
+                        <Box width="medium" margin={{ vertical: 'small' }}>
+                            <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
+                        </Box>
                         <Button type="submit" label={currentId ? 'Update' : 'Create'} primary />
                     </Form>
                 </Box>

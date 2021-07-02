@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Grid, Box } from 'grommet';
+import { Grid } from 'grommet';
 
 import Post from './Post';
 
@@ -9,7 +9,7 @@ const Posts = ({ setCurrentId }) => {
     return (
         !posts.length ? "There's no post to show here." : (
             <Grid fill
-                rows={['auto', 'flex']}
+                rows={['auto', 'auto']}
                 columns={{count: "fit",size: '25%'}}
                 gap="medium">
                 {posts.map((post) => (
