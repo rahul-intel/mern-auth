@@ -1,19 +1,24 @@
-.password-box .password-formfield .cpvnmn, .password-box .password-formfield .iovhzP  {
+.password-box .password-formfield > div  {
     display: inline-block;
+    position: relative;
 }
-.password-box .password-formfield .cpvnmn div, .password-box .password-formfield .iovhzP div {
-    width: 90% !important;
+.password-box .password-formfield > div > div {
     float: left;
 }
-.password-box .password-formfield .cpvnmn button, .password-box .password-formfield .iovhzP button {
+.password-box .password-formfield button {
     width: 30px !important;
-    float: left;
     margin-top: 9px !important;
+    position: absolute;
+    right: 8px;;
 }
-.password-box .password-formfield .cpvnmn .password-input, .password-box .password-formfield .iovhzP .password-input {
+.password-box .password-formfield .password-input {
     line-height: 20px !important;
 }
-.password-box .password-formfield .cpvnmn .password-input:focus, .password-box .password-formfield .iovhzP .password-input:focus {
+.password-box .password-formfield .password-input:focus{
     box-shadow: none !important;
 }
 button:focus { box-shadow: none !important; }
+.posts-outer {
+    height: auto !important;
+    overflow-y: auto !important;
+}
