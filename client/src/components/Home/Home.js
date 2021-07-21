@@ -14,6 +14,7 @@ const Home = () => {
     }, [currentId, dispatch]);
 
     const columns = {
+        xsmall: ['1'],
         small: ['1'],
         medium: ['auto', '1/3'],
         large: ['auto', '1/3'],
@@ -21,12 +22,17 @@ const Home = () => {
     };
 
     const rows = {
+        xsmall: ['auto', 'auto'],
         small: ['auto', 'auto'],
         medium: ['auto', 'auto'],
         large: ['auto', 'flex'],
         xlarge: ['auto', 'flex'],
     };
     const fixedGridAreas = {
+        xsmall: [
+            { name: 'posts', start: [0, 0], end: [0, 0] },
+            { name: 'form', start: [0, 1], end: [0, 1] },
+        ],
         small: [
             { name: 'posts', start: [0, 0], end: [0, 0] },
             { name: 'form', start: [0, 1], end: [0, 1] },
@@ -47,15 +53,15 @@ const Home = () => {
     return (
         <ResponsiveContext.Consumer>
             {size => {
-                       console.log(size,111);return ( <Grid fill
+                        return ( <Grid fill
                             rows={rows[size]}
                             columns={columns[size]}
                             gap="small"
                             areas={fixedGridAreas[size]}>
-                            <Box gridArea="posts" background="light-1" pad="small">
+                            <Box gridArea="posts" background="light-1" pad="small" className="posts-outer">
                                 <Posts setCurrentId={setCurrentId}/>
                             </Box>
-                            <Box gridArea="form" background="light-2" align="center" pad="small">
+                            <Box gridArea="form" background="light-2" align="center" pad="small" className="posts-form-outer">
                                 <PostForm currentId={currentId} setCurrentId={setCurrentId}></PostForm>
                             </Box>
                         </Grid> )

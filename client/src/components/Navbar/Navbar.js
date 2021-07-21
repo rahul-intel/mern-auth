@@ -52,35 +52,53 @@ const Navbar = (props) => {
             <Heading level='3' onClick={() => history.push('/')} margin={{ 'vertical': '0', 'right': '50px'}}>My Blogger</Heading>
             <ResponsiveContext.Consumer>
                 {size =>
-                    size !== 'small' ? (
+                    size !== 'small' && size !== 'xsmall'  ? (
+                    <>
                     <Nav direction="row" flex gap="medium">
                         <Anchor label="Home" color={activePage === '/' ? 'activeAnchor': 'brand'} href="/" />
                         <Anchor label="About" color={activePage === '/about' ? 'activeAnchor' : 'brand'} href="/about" />
                         <Anchor label="Contact" color={activePage === '/contact' ? 'activeAnchor' : 'brand'} href="/contact" />
-                    </Nav>) : (
-                    <Menu
-                        icon={<MenuIcon color="brand" />}
-                        items={[
-                            { label: 'Home', href: '/', gap: 'small' },
-                            { label: 'About', href: '/about', gap: 'small' },
-                            { label: 'Contact', href: '/contact', gap: 'small' }
-                        ]}
-                    />
+                    </Nav>
+                    <Box direction="row">
+                        {user?.result ? (
+                            <Menu
+                                label={user?.result?.name}
+                                items={[
+                                    { label: 'Profile', onClick: () => { }, icon: <User />, gap: 'small' },
+                                    { label: 'Logout', onClick: logout, icon: <Power />, gap: 'small' },
+                                ]}
+                            />
+                        ) : (
+                            <Button color="primary" icon={<Login color="brand" />} label='Login' onClick={() => history.push('/auth')} />
+                        )}
+                    </Box>
+                    </>) : (
+                    <Box direction="row">
+                        <Menu
+                            icon={<MenuIcon color="brand" />}
+                            items={[
+                                { label: 'Home', href: '/', gap: 'small' },
+                                { label: 'About', href: '/about', gap: 'small' },
+                                { label: 'Contact', href: '/contact', gap: 'small' }
+                            ]}
+                        />
+                        <Box direction="row">
+                            {user?.result ? (
+                                <Menu
+                                    label={user?.result?.name ? user?.result?.name.split(' ')[0] : ''}
+                                    items={[
+                                        { label: 'Profile', onClick: () => { }, icon: <User />, gap: 'small' },
+                                        { label: 'Logout', onClick: logout, icon: <Power />, gap: 'small' },
+                                    ]}
+                                />
+                            ) : (
+                                    <Button color="primary" icon={<Login color="brand"/>} onClick={() =>  history.push('/auth') } />
+                            )}
+                        </Box>
+                    </Box>
                 )}
-            </ResponsiveContext.Consumer>
-            <Box direction="row">
-                {user?.result ? (
-                    <Menu
-                        label={user?.result?.name}
-                        items={[
-                            { label: 'Profile', onClick: () => { }, icon: <User />, gap: 'small' },
-                            { label: 'Logout', onClick: logout, icon: <Power />, gap: 'small' },
-                        ]}
-                    />
-                ) : (
-                        <Button color="primary" icon={<Login color="brand"/>} label='Login' onClick={() =>  history.push('/auth') } />
-                )}
-            </Box>
+               </ResponsiveContext.Consumer>
+
         </AppBar>
     );
 };
