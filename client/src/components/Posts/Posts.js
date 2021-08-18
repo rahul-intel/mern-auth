@@ -13,15 +13,15 @@ const Posts = ({ setCurrentId }) => {
         xlarge: { count: "fit", size: '25%' },
     };
     const rows = {
-        xsmall: ['full'],
-        small: ['full'],
+        xsmall: ['auto','1/3'],
+        small: ['auto','1/3'],
         medium: ['auto', '1/2'],
         large: ['auto', 'flex'],
         xlarge: ['auto', 'flex'],
     };
     return (
         <ResponsiveContext.Consumer>
-            {size => { console.log(size);
+            {size => { 
                 return (!posts.length ? <Box align="center" direction="row" gap="small">
                     <Spinner
                         border={[
@@ -37,7 +37,8 @@ const Posts = ({ setCurrentId }) => {
                             justifyContent="center"
                             rows={rows[size]}
                             columns={columns[size]}
-                            gap="small">
+                            gap="small"
+                            margin={{ top: size=== 'small' || size === 'xsmall' ? '10px' : 'small'}}>
                                 {posts.map((post) => (
                                     <Post key={post._id} post={post} setCurrentId={setCurrentId} />
                                 ))}

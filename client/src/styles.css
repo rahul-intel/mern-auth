@@ -22,3 +22,8 @@ button:focus { box-shadow: none !important; }
     height: auto !important;
     overflow-y: auto !important;
 }
+.drop-content-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
